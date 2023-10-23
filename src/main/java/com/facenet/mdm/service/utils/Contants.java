@@ -56,54 +56,17 @@ public class Contants {
         }
     }
 
-    public interface MachineTimeUnit {
-        int SECOND = 0;
-        int MINUTE = 1;
-        int HOUR = 2;
-        int DAY = 3;
-        int MONTH = 4;
-    }
 
     public interface EntityType {
-        int PRODUCTIONSTAGE = 1;
-        int VENDOR = 2;
-        int JOB = 3;
-
-        int ERROR = 4;
-        int ERRORGROUP = 5;
         int MACHINE = 6;
-        int PRODUCTION_LINE = 7;
-        int BTP = 8;
-        int TP = 9;
-        int NVL = 10;
-        int EMPLOYEE = 11;
-        int TEAM_GROUP = 12;
 
-        int MERCHANDISE_GROUP = 13;
-
-        int MERCHANDISE = 14;
-        int CUSTOMER = 15;
-
-        int BOM = 16;
     }
 
     public static final Map<Integer, String> FUNCTION_NAME = Collections.unmodifiableMap(
         new HashMap<>() {
             {
                 put(EntityType.MACHINE, "Quản lý máy móc");
-                put(EntityType.PRODUCTION_LINE, "Quản lý dây chuyền");
-                put(EntityType.PRODUCTIONSTAGE, "Quản lý công đoạn");
-                put(EntityType.VENDOR, "Quản lý nhà cung cấp");
-                put(EntityType.JOB, "Quản lý Job");
-                put(EntityType.BTP, "Quản lý bán thành phẩm");
-                put(EntityType.TP, "Quản lý thành phẩm");
-                put(EntityType.NVL, "Quản lý nguyên vật liệu");
-                put(EntityType.CUSTOMER, "Quản lý thông tin khách hàng");
-                put(EntityType.ERROR, "Quản lý lỗi");
-                put(EntityType.ERRORGROUP, "Quản lý nhóm lỗi");
-                put(EntityType.EMPLOYEE, "Quản lý nhân viên");
-                put(EntityType.TEAM_GROUP, "Quản lý nhóm tổ");
-                put(EntityType.MERCHANDISE_GROUP, "Quản lý nhóm hàng hóa");
+
             }
         }
     );
