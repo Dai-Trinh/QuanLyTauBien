@@ -1,12 +1,10 @@
 package com.facenet.mdm.repository.impl;
 
 import com.facenet.mdm.domain.ColumnPropertyEntity;
-import com.facenet.mdm.domain.JobEntity;
+
 import com.facenet.mdm.domain.QColumnPropertyEntity;
 import com.facenet.mdm.repository.custom.ColumnPropertyCustomRepository;
-import com.facenet.mdm.service.dto.JobDTO;
 import com.facenet.mdm.service.dto.KeyDictionaryDTO;
-import com.facenet.mdm.service.model.PageFilterInput;
 import com.facenet.mdm.service.utils.Contants;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -15,9 +13,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ColumnPropertyRepositoryImpl implements ColumnPropertyCustomRepository {
 
     @PersistenceContext

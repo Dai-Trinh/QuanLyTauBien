@@ -1,15 +1,10 @@
 package com.facenet.mdm.service;
 
-import com.facenet.mdm.domain.EmployeeEntity;
-import com.facenet.mdm.repository.AuthorityRepository;
-import com.facenet.mdm.repository.EmployeeRepository;
-import com.facenet.mdm.repository.UserRepository;
 import com.facenet.mdm.service.dto.AdminUserDTO;
 import com.facenet.mdm.service.dto.KeycloakUserDTO;
 import com.facenet.mdm.service.dto.RoleDTO;
 import com.facenet.mdm.service.dto.UserDetailDTO;
 import com.facenet.mdm.service.exception.CustomException;
-import com.facenet.mdm.service.mapper.UserMapper;
 import com.facenet.mdm.service.model.PageFilterInput;
 import java.util.*;
 import java.util.function.Function;
@@ -44,25 +39,25 @@ public class KeycloakService {
     @Value("${keycloak.app.realm}")
     private String realm;
 
-    private final EmployeeRepository employeeRepository;
+    //private final EmployeeRepository employeeRepository;
 
-    public KeycloakService(Keycloak keycloak, EmployeeRepository employeeRepository) {
+    public KeycloakService(Keycloak keycloak) {
         this.keycloak = keycloak;
-        this.employeeRepository = employeeRepository;
+        //this.employeeRepository = employeeRepository;
     }
 
     @Transactional
     public void registerUser(KeycloakUserDTO user) {
         // Check employee code
-        EmployeeEntity employeeEntity = null;
-        if (!StringUtils.isEmpty(user.getEmployeeCode())) {
-            employeeEntity = employeeRepository.getEmployeeEntitieByCode(user.getEmployeeCode());
-            if (employeeEntity == null) throw new CustomException(HttpStatus.NOT_FOUND, "entity.notfound", user.getEmployeeCode());
-            if (StringUtils.isEmpty(employeeEntity.getUsername())) {
-                throw new CustomException(HttpStatus.BAD_REQUEST, "exist.employee.username");
-            }
-            employeeEntity.setUsername(user.getUsername());
-        }
+//        EmployeeEntity employeeEntity = null;
+//        if (!StringUtils.isEmpty(user.getEmployeeCode())) {
+//            employeeEntity = employeeRepository.getEmployeeEntitieByCode(user.getEmployeeCode());
+//            if (employeeEntity == null) throw new CustomException(HttpStatus.NOT_FOUND, "entity.notfound", user.getEmployeeCode());
+//            if (StringUtils.isEmpty(employeeEntity.getUsername())) {
+//                throw new CustomException(HttpStatus.BAD_REQUEST, "exist.employee.username");
+//            }
+//            employeeEntity.setUsername(user.getUsername());
+//        }
 
         RealmResource realmResource = keycloak.realm(realm);
         // Create user
@@ -107,17 +102,17 @@ public class KeycloakService {
             userResource.roles().realmLevel().add(assignedRolesByUser);
         }
         // Save employee username
-        if (employeeEntity != null) employeeRepository.save(employeeEntity);
+        //if (employeeEntity != null) employeeRepository.save(employeeEntity);
     }
 
     public void updateUser(String userId, KeycloakUserDTO user) {
         // Check employee code
-        EmployeeEntity employeeEntity = null;
-        if (!StringUtils.isEmpty(user.getEmployeeCode())) {
-            employeeEntity = employeeRepository.getEmployeeEntitieByCode(user.getEmployeeCode());
-            if (employeeEntity == null) throw new CustomException(HttpStatus.NOT_FOUND, "entity.notfound", user.getEmployeeCode());
-            employeeEntity.setUsername(user.getUsername());
-        }
+//        EmployeeEntity employeeEntity = null;
+//        if (!StringUtils.isEmpty(user.getEmployeeCode())) {
+//            employeeEntity = employeeRepository.getEmployeeEntitieByCode(user.getEmployeeCode());
+//            if (employeeEntity == null) throw new CustomException(HttpStatus.NOT_FOUND, "entity.notfound", user.getEmployeeCode());
+//            employeeEntity.setUsername(user.getUsername());
+//        }
 
         RealmResource realmResource = keycloak.realm(realm);
         UserResource userResource = realmResource.users().get(userId);
@@ -157,7 +152,7 @@ public class KeycloakService {
         if (!CollectionUtils.isEmpty(removeRoles)) userResource.roles().realmLevel().remove(removeRoles);
         if (!CollectionUtils.isEmpty(addRoles)) userResource.roles().realmLevel().add(addRoles);
 
-        if (employeeEntity != null) employeeRepository.save(employeeEntity);
+        //if (employeeEntity != null) employeeRepository.save(employeeEntity);
     }
 
     public List<RoleRepresentation> getRoles() {
@@ -248,14 +243,14 @@ public class KeycloakService {
         return roleDTO;
     }
 
-    private void updateEmployeeUsername(String employeeCode, String username) throws CustomException {
-        if (!StringUtils.isEmpty(employeeCode)) {
-            EmployeeEntity employeeEntity = employeeRepository.getEmployeeEntitieByCode(employeeCode);
-            if (employeeEntity == null) throw new CustomException(HttpStatus.NOT_FOUND, "entity.notfound", employeeCode);
-            employeeEntity.setUsername(username);
-            employeeRepository.save(employeeEntity);
-        }
-    }
+//    private void updateEmployeeUsername(String employeeCode, String username) throws CustomException {
+//        if (!StringUtils.isEmpty(employeeCode)) {
+//            EmployeeEntity employeeEntity = employeeRepository.getEmployeeEntitieByCode(employeeCode);
+//            if (employeeEntity == null) throw new CustomException(HttpStatus.NOT_FOUND, "entity.notfound", employeeCode);
+//            employeeEntity.setUsername(username);
+//            employeeRepository.save(employeeEntity);
+//        }
+//    }
 
     public Set<String> getAutocompleteUser(PageFilterInput<AdminUserDTO> input) {
         Set<String> result = new HashSet<>(input.getPageSize());
@@ -281,8 +276,8 @@ public class KeycloakService {
     public UserDetailDTO getUser(String userId) {
         RealmResource realmResource = keycloak.realm(realm);
         UserDetailDTO user = new UserDetailDTO(realmResource.users().get(userId).toRepresentation());
-        EmployeeEntity employeeEntity = employeeRepository.findByUsernameEqualsIgnoreCaseAndIsActiveTrue(user.getUsername());
-        if (employeeEntity != null) user.setEmployeeCode(employeeEntity.getEmployeeCode());
+        //EmployeeEntity employeeEntity = employeeRepository.findByUsernameEqualsIgnoreCaseAndIsActiveTrue(user.getUsername());
+        //if (employeeEntity != null) user.setEmployeeCode(employeeEntity.getEmployeeCode());
 
         user.setAssignedRole(
             realmResource

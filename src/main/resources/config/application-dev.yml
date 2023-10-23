@@ -33,8 +33,8 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mariadb://222.252.25.37:3307/master_data_management?useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
+    url: jdbc:mariadb://52.77.41.236:3306/voyage_management_system?useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: admin
     password: 171ca9e4eb616be4a8007db9fa1da1091480f211e39c2ed8cc56cd6d6d25b09a
     hikari:
       poolName: Hikari

@@ -53,7 +53,6 @@ public class MachineService {
     private final MachineCustomRepository machineCustomRepository;
     private final KeyValueService keyValueService;
     private final XlsxExcelHandle xlsxExcelHandle;
-    private final MachineTypeRepository machineTypeRepository;
     private final KeyValueV2Repository keyValueV2Repository;
     private final AutoCompleteCustomRepository<MachineEntity> autoCompleteCustomRepository;
     private final BusinessLogService businessLogService;
@@ -67,7 +66,6 @@ public class MachineService {
         MachineCustomRepository machineCustomRepository,
         KeyValueService keyValueService,
         XlsxExcelHandle xlsxExcelHandle,
-        MachineTypeRepository machineTypeRepository,
         KeyValueV2Repository keyValueV2Repository,
         AutoCompleteCustomRepository<MachineEntity> autoCompleteCustomRepository,
         BusinessLogService businessLogService
@@ -80,7 +78,6 @@ public class MachineService {
         this.machineCustomRepository = machineCustomRepository;
         this.xlsxExcelHandle = xlsxExcelHandle;
         this.keyValueService = keyValueService;
-        this.machineTypeRepository = machineTypeRepository;
         this.keyValueV2Repository = keyValueV2Repository;
         this.autoCompleteCustomRepository = autoCompleteCustomRepository;
         this.businessLogService = businessLogService;
@@ -135,11 +132,6 @@ public class MachineService {
                     );
                 }
 
-                if (item.getMachineType() != null) {
-                    if (
-                        item.getMachineType().getMachineTypeName().toLowerCase().contains(filterInput.getCommon().toLowerCase())
-                    ) listAuto.add(item.getMachineType().getMachineTypeName());
-                }
 
                 if (item.getDescription() != null) {
                     if (item.getDescription().toLowerCase().contains(filterInput.getCommon().toLowerCase())) listAuto.add(
@@ -228,10 +220,6 @@ public class MachineService {
         if (checkMachineEntity != null) throw new CustomException(HttpStatus.CONFLICT, "duplicate.machine.code", input.getMachineCode());
 
         MachineEntity machineEntity = machineEntityMapper.toEntity(input);
-        if (input.getMachineType() != null) {
-            MachineTypeEntity machineTypeEntity = machineTypeRepository.findById(input.getMachineType().getId()).orElse(null);
-            machineEntity.setMachineTypeEntity(machineTypeEntity);
-        }
 
         machineEntity = machineRepository.save(machineEntity);
 
@@ -252,10 +240,7 @@ public class MachineService {
         MachineEntity oldValue = new MachineEntity(machineEntity);
         machineEntityMapper.updateFromDTO(machineEntity, input);
 
-        if (input.getMachineType() != null) {
-            MachineTypeEntity machineTypeEntity = machineTypeRepository.findById(input.getMachineType().getId()).orElse(null);
-            machineEntity.setMachineTypeEntity(machineTypeEntity);
-        }
+
 
         MachineEntity savedEntity = machineRepository.save(machineEntity);
 
@@ -332,11 +317,6 @@ public class MachineService {
         Sheet sheet = workbook.getSheetAt(0);
         MachineExcel machineExcel = new MachineExcel();
         List<MachineEntity> machineEntities = new ArrayList<>();
-        List<MachineTypeEntity> allMachineType = machineTypeRepository.findAll();
-        Map<String, MachineTypeEntity> machineTypeMap = allMachineType
-            .stream()
-            .collect(Collectors.toMap(machineType -> machineType.getMachineTypeName().toLowerCase(), Function.identity()));
-
         List<ColumnPropertyEntity> columns = columnPropertyRepository.getAllVisiblePropertyByEntityType(Contants.EntityType.MACHINE);
 
         for (Row row : sheet) {
@@ -353,18 +333,6 @@ public class MachineService {
                         break;
                     case "machineName":
                         entity.setMachineName(ExcelUtils.getStringCellValue(currentCell));
-                        break;
-                    case "machineType":
-                        String machineTypeName = ExcelUtils.getStringCellValue(currentCell);
-                        if (machineTypeName != null) {
-                            if (machineTypeMap.containsKey(machineTypeName.toLowerCase())) {
-                                entity.setMachineTypeEntity(machineTypeMap.get(machineTypeName.toLowerCase()));
-                            } else {
-                                MachineTypeEntity machineTypeEntity = machineTypeRepository.save(new MachineTypeEntity(machineTypeName));
-                                entity.setMachineTypeEntity(machineTypeEntity);
-                                //                                throw new CustomException(HttpStatus.BAD_REQUEST, "unknown.type", machineTypeName);
-                            }
-                        }
                         break;
                     case "description":
                         entity.setDescription(ExcelUtils.getStringCellValue(currentCell));

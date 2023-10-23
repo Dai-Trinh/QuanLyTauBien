@@ -1,13 +1,14 @@
 package com.facenet.mdm.repository;
 
 import com.facenet.mdm.domain.ColumnPropertyEntity;
-import com.facenet.mdm.repository.custom.ColumnPropertyCustomRepository;
-import com.facenet.mdm.service.dto.KeyDictionaryDTO;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import com.facenet.mdm.repository.custom.ColumnPropertyCustomRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

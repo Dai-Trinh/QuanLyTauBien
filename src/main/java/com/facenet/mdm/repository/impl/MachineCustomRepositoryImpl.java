@@ -50,8 +50,6 @@ public class MachineCustomRepositoryImpl implements MachineCustomRepository {
 
         JPAQuery<MachineEntity> query = new JPAQueryFactory(entityManager)
             .selectFrom(qMachineEntity)
-            .join(qMachineEntity.machineType)
-            .fetchJoin()
             .leftJoin(qKeyValueEntityV2)
             .on(qKeyValueEntityV2.entityType.eq(Contants.EntityType.MACHINE))
             .on(qMachineEntity.id.eq(qKeyValueEntityV2.entityKey));
@@ -69,7 +67,6 @@ public class MachineCustomRepositoryImpl implements MachineCustomRepository {
                 qMachineEntity.machineCode
                     .containsIgnoreCase(input.getCommon())
                     .or(qMachineEntity.machineName.containsIgnoreCase(input.getCommon()))
-                    .or(qMachineEntity.machineType.machineTypeName.containsIgnoreCase(input.getCommon()))
                     .or(qMachineEntity.supplier.containsIgnoreCase(input.getCommon()))
                     .or(qMachineEntity.maxProductionQuantity.like("%" + input.getCommon() + "%"))
                     .or(qMachineEntity.minProductionQuantity.like("%" + input.getCommon() + "%"))
@@ -85,9 +82,6 @@ public class MachineCustomRepositoryImpl implements MachineCustomRepository {
         }
         if (!StringUtils.isEmpty(filter.getMachineName())) {
             booleanBuilder.and(qMachineEntity.machineName.containsIgnoreCase(filter.getMachineName()));
-        }
-        if (filter.getMachineType().getMachineTypeName() != null) {
-            booleanBuilder.and(qMachineEntity.machineType.machineTypeName.containsIgnoreCase(filter.getMachineType().getMachineTypeName()));
         }
         if (filter.getProductivity() != null) {
             booleanBuilder.and(qMachineEntity.productivity.eq(filter.getProductivity()));

@@ -11,9 +11,7 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface MachineEntityMapper extends EntityMapper<MachineDTO, MachineEntity> {
     @Mapping(target = "machineCode", ignore = true)
-    @Mapping(target = "machineTypeEntity", source = "machineType")
     void updateFromDTO(@MappingTarget MachineEntity machineEntity, MachineDTO machineDTO);
 
-    @Mapping(target = "machineType", source = "machineType")
     MachineDTO toDto(MachineEntity machineEntity);
 }

@@ -1,14 +1,9 @@
 package com.facenet.mdm.service.dto;
 
 import com.facenet.mdm.domain.MachineEntity;
-import com.facenet.mdm.domain.MachineTypeEntity;
-import com.facenet.mdm.domain.ProductionLineTypeEntity;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
+
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A DTO for the {@link MachineEntity} entity
@@ -17,7 +12,6 @@ public class MachineDTO extends BaseDynamicDTO implements Serializable {
 
     private String machineCode;
     private String machineName;
-    private MachineTypeEntity machineType;
     private Double productivity;
     private String description;
     private Integer status;
@@ -48,14 +42,6 @@ public class MachineDTO extends BaseDynamicDTO implements Serializable {
 
     public void setMachineName(String machineName) {
         this.machineName = machineName;
-    }
-
-    public MachineTypeEntity getMachineType() {
-        return machineType;
-    }
-
-    public void setMachineType(MachineTypeEntity machineType) {
-        this.machineType = machineType;
     }
 
     public Double getProductivity() {

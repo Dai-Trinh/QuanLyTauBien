@@ -158,14 +158,14 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: https://sso.xfactory.vn/auth/realms/Facenet
+            issuer-uri: https://ssoproduction.xfactory.vn/auth/realms/Facenet
         registration:
           oidc:
             client-id: mrp_backend
             client-secret: web_app
             scope: openid, profile, email, offline_access # last one for refresh tokens
 keycloak:
-  auth-server-url: https://sso.xfactory.vn/auth
+  auth-server-url: https://ssoproduction.xfactory.vn/auth
   realm: master
   resource: admin-cli
   credentials:

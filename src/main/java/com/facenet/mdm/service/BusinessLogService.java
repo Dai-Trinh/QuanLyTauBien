@@ -2,14 +2,11 @@ package com.facenet.mdm.service;
 
 import com.facenet.mdm.domain.BusinessLogDetailEntity;
 import com.facenet.mdm.domain.BusinessLogEntity;
-import com.facenet.mdm.domain.ColumnPropertyEntity;
 import com.facenet.mdm.repository.BusinessLogDetailRepository;
 import com.facenet.mdm.repository.BusinessLogRepository;
 import com.facenet.mdm.repository.ColumnPropertyRepository;
 import com.facenet.mdm.repository.custom.BusinessLogCustomRepository;
 import com.facenet.mdm.repository.custom.BusinessLogDetailCustomRepository;
-import com.facenet.mdm.repository.custom.ColumnPropertyCustomRepository;
-import com.facenet.mdm.security.SecurityUtils;
 import com.facenet.mdm.service.dto.BusinessLogDTO;
 import com.facenet.mdm.service.dto.BusinessLogDetailDTO;
 import com.facenet.mdm.service.exception.CustomException;
@@ -17,10 +14,8 @@ import com.facenet.mdm.service.model.PageFilterInput;
 import com.facenet.mdm.service.utils.Contants;
 import com.facenet.mdm.service.utils.Utils;
 import java.util.*;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -137,7 +132,7 @@ public class BusinessLogService {
         BusinessLogEntity businessLogEntity = new BusinessLogEntity();
         businessLogEntity.setEntityId(entityId);
         businessLogEntity.setEntityType(entityType);
-        businessLogEntity.setFunctionName(Contants.FUNCTION_NAME.get(entityType));
+        //businessLogEntity.setFunctionName(Contants.FUNCTION_NAME.get(entityType));
         businessLogEntity.setActionName(actionName);
         return businessLogEntity;
     }

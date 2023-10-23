@@ -31,9 +31,6 @@ public class MachineEntity extends AbstractAuditingEntity<Integer> {
     //    @Column(name = "machine_type", insertable = false, updatable = false)
     //    private Integer machineType;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "machine_type")
-    private MachineTypeEntity machineType;
 
     @Column(name = "productivity")
     private Double productivity;
@@ -82,7 +79,6 @@ public class MachineEntity extends AbstractAuditingEntity<Integer> {
         this.id = that.id;
         this.machineCode = that.machineCode;
         this.machineName = that.machineName;
-        this.machineType = that.machineType;
         this.productivity = that.productivity;
         this.description = that.description;
         this.supplier = that.supplier;
@@ -95,13 +91,6 @@ public class MachineEntity extends AbstractAuditingEntity<Integer> {
         this.status = that.status;
     }
 
-    public MachineTypeEntity getMachineType() {
-        return machineType;
-    }
-
-    public void setMachineTypeEntity(MachineTypeEntity machineTypeEntity) {
-        this.machineType = machineTypeEntity;
-    }
 
     public Integer getId() {
         return id;
