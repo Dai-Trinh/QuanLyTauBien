@@ -1,6 +1,6 @@
 package com.facenet.mdm.service.dto;
 
-
+import com.facenet.mdm.anotation.SecuredField;
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -8,6 +8,7 @@ public class SeaportDTO extends BaseDynamicDTO implements Serializable {
 
     private Integer id;
 
+    @SecuredField("MK_seaportCode::view")
     private String seaportCode;
 
     private String seaportName;

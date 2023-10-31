@@ -47,12 +47,10 @@ public class MachineService {
     private final Logger log = LogManager.getLogger(MachineService.class);
     private final MachineRepository machineRepository;
     private final MachineEntityMapper machineEntityMapper;
-    private final KeyValueRepository keyValueRepository;
     private final MachineDTOMapper machineDTOMapper;
     private final ColumnPropertyRepository columnPropertyRepository;
     private final MachineCustomRepository machineCustomRepository;
     private final KeyValueService keyValueService;
-    private final XlsxExcelHandle xlsxExcelHandle;
     private final KeyValueV2Repository keyValueV2Repository;
     private final AutoCompleteCustomRepository<MachineEntity> autoCompleteCustomRepository;
     private final BusinessLogService businessLogService;
@@ -60,23 +58,19 @@ public class MachineService {
     public MachineService(
         MachineRepository machineRepository,
         MachineEntityMapper machineEntityMapper,
-        KeyValueRepository keyValueRepository,
         MachineDTOMapper machineDTOMapper,
         ColumnPropertyRepository columnPropertyRepository,
         MachineCustomRepository machineCustomRepository,
         KeyValueService keyValueService,
-        XlsxExcelHandle xlsxExcelHandle,
         KeyValueV2Repository keyValueV2Repository,
         AutoCompleteCustomRepository<MachineEntity> autoCompleteCustomRepository,
         BusinessLogService businessLogService
     ) {
         this.machineRepository = machineRepository;
         this.machineEntityMapper = machineEntityMapper;
-        this.keyValueRepository = keyValueRepository;
         this.machineDTOMapper = machineDTOMapper;
         this.columnPropertyRepository = columnPropertyRepository;
         this.machineCustomRepository = machineCustomRepository;
-        this.xlsxExcelHandle = xlsxExcelHandle;
         this.keyValueService = keyValueService;
         this.keyValueV2Repository = keyValueV2Repository;
         this.autoCompleteCustomRepository = autoCompleteCustomRepository;
@@ -131,7 +125,6 @@ public class MachineService {
                         item.getMachineName()
                     );
                 }
-
 
                 if (item.getDescription() != null) {
                     if (item.getDescription().toLowerCase().contains(filterInput.getCommon().toLowerCase())) listAuto.add(
@@ -239,8 +232,6 @@ public class MachineService {
         if (machineEntity == null) throw new CustomException(HttpStatus.NOT_FOUND, "record.notfound");
         MachineEntity oldValue = new MachineEntity(machineEntity);
         machineEntityMapper.updateFromDTO(machineEntity, input);
-
-
 
         MachineEntity savedEntity = machineRepository.save(machineEntity);
 

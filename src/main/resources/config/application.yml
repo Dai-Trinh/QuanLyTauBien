@@ -158,11 +158,11 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: https://ssoproduction.xfactory.vn/auth/realms/Facenet
+            issuer-uri: https://ssoproduction.xfactory.vn/auth/realms/dev
         registration:
           oidc:
-            client-id: mrp_backend
-            client-secret: web_app
+            client-id: backend
+            client-secret: T5zdILN40tBcbiWI071m6fjNusJnCsM9
             scope: openid, profile, email, offline_access # last one for refresh tokens
 keycloak:
   auth-server-url: https://ssoproduction.xfactory.vn/auth
@@ -172,7 +172,7 @@ keycloak:
     username: admin
     password: 'admin'
   app:
-    realm: Facenet
+    realm: dev
 server:
   servlet:
     session:

@@ -31,6 +31,29 @@ public final class SecurityUtils {
         return Optional.ofNullable(extractPrincipal(securityContext.getAuthentication()));
     }
 
+    public static String getTenantId() {
+        Map<String, Object> claims = SecurityUtils.getClaims();
+        if (claims == null) return null;
+        String tenantId = null;
+        if (claims.get("tenant_id") instanceof List<?>) {
+            tenantId = (String) ((List<?>) claims.get("tenant_id")).get(0);
+        } else if (claims.get("tenant_id") instanceof String) {
+            tenantId = (String) claims.get("tenant_id");
+        }
+        return tenantId;
+    }
+
+    public static Map<String, Object> getClaims() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        if (authentication == null) {
+            return null;
+        } else if (authentication instanceof JwtAuthenticationToken) {
+            return ((JwtAuthenticationToken) authentication).getToken().getClaims();
+        }
+        return null;
+    }
+
     private static String extractPrincipal(Authentication authentication) {
         if (authentication == null) {
             return null;

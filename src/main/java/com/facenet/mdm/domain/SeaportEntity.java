@@ -1,6 +1,5 @@
 package com.facenet.mdm.domain;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -20,7 +19,7 @@ public class SeaportEntity extends AbstractAuditingEntity<Integer> {
     @Column(name = "seaport_nation")
     private String seaportNation;
 
-    @Column(name = "seaportAddress")
+    @Column(name = "seaport_address")
     private String seaportAddress;
 
     @Column(name = "latitude")

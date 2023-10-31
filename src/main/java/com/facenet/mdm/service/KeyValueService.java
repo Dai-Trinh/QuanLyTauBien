@@ -1,9 +1,10 @@
 package com.facenet.mdm.service;
 
-import com.facenet.mdm.domain.*;
+import com.facenet.mdm.domain.BusinessLogDetailEntity;
+import com.facenet.mdm.domain.BusinessLogEntity;
+import com.facenet.mdm.domain.ColumnPropertyEntity;
+import com.facenet.mdm.domain.KeyValueEntityV2;
 import com.facenet.mdm.repository.ColumnPropertyRepository;
-import com.facenet.mdm.repository.KeyDictionaryRepository;
-import com.facenet.mdm.repository.KeyValueRepository;
 import com.facenet.mdm.repository.KeyValueV2Repository;
 import com.facenet.mdm.service.exception.CustomException;
 import com.facenet.mdm.service.utils.Contants;
@@ -27,22 +28,16 @@ import org.springframework.util.StringUtils;
 public class KeyValueService {
 
     private static final Logger log = LoggerFactory.getLogger(KeyValueService.class);
-    private final KeyDictionaryRepository keyDictionaryRepository;
     private final ColumnPropertyRepository columnPropertyRepository;
-    private final KeyValueRepository keyValueRepository;
     private final KeyValueV2Repository keyValueV2Repository;
     private final BusinessLogService businessLogService;
 
     public KeyValueService(
-        KeyDictionaryRepository keyDictionaryRepository,
         ColumnPropertyRepository columnPropertyRepository,
-        KeyValueRepository keyValueRepository,
         KeyValueV2Repository keyValueV2Repository,
         BusinessLogService businessLogService
     ) {
-        this.keyDictionaryRepository = keyDictionaryRepository;
         this.columnPropertyRepository = columnPropertyRepository;
-        this.keyValueRepository = keyValueRepository;
         this.keyValueV2Repository = keyValueV2Repository;
         this.businessLogService = businessLogService;
     }
