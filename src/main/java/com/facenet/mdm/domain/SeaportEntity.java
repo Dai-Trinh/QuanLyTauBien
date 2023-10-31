@@ -110,4 +110,12 @@ public class SeaportEntity extends AbstractAuditingEntity<Integer> {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }

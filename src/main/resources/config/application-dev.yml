@@ -57,6 +57,7 @@ spring:
 
 server:
   port: 10068
+  max-http-header-size: 20000
 
 # ===================================================================
 # JHipster specific properties
