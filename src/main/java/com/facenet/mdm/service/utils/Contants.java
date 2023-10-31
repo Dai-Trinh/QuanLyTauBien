@@ -58,6 +58,9 @@ public class Contants {
 
 
     public interface EntityType {
+
+        int SEAPORT = 1;
+
         int MACHINE = 6;
 
     }

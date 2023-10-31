@@ -2,8 +2,6 @@ package com.facenet.mdm.service.utils;
 
 import static org.apache.poi.ss.usermodel.CellType.STRING;
 
-import com.facenet.mdm.domain.*;
-import com.facenet.mdm.repository.*;
 import com.facenet.mdm.repository.ColumnPropertyRepository;
 import com.facenet.mdm.service.dto.*;
 import com.facenet.mdm.service.exception.CustomException;
