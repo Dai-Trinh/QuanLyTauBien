@@ -136,6 +136,6 @@ public final class SecurityUtils {
     }
 
     private static List<GrantedAuthority> mapRolesToGrantedAuthorities(Collection<String> roles) {
-        return roles.stream().filter(role -> role.startsWith("MK_")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return roles.stream().filter(role -> role.startsWith("VMS_")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 }

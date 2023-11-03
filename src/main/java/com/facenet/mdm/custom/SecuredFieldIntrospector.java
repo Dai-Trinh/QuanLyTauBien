@@ -11,7 +11,7 @@ public class SecuredFieldIntrospector extends JacksonAnnotationIntrospector {
     public boolean hasIgnoreMarker(AnnotatedMember m) {
         SecuredField securedField = _findAnnotation(m, SecuredField.class);
         if (securedField != null) {
-            if (SecurityUtils.hasCurrentUserAnyOfAuthorities(securedField.value())) {
+            if (!SecurityUtils.hasCurrentUserAnyOfAuthorities(securedField.value())) {
                 return true;
             }
         }

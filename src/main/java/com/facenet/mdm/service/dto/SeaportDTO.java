@@ -8,9 +8,10 @@ public class SeaportDTO extends BaseDynamicDTO implements Serializable {
 
     private Integer id;
 
-    @SecuredField("MK_seaportCode::view")
+    @SecuredField("VMS_seaportCode::view")
     private String seaportCode;
 
+    @SecuredField("VMS_seaportName::view")
     private String seaportName;
 
     private String seaportNation;

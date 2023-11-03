@@ -14,6 +14,7 @@ public class BaseDynamicDTO {
         return properties;
     }
 
+
     @JsonAnySetter
     public void setPropertiesMap(String key, String value) {
         properties.put(key, value);
