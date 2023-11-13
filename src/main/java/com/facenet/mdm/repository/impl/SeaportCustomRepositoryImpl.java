@@ -21,7 +21,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -32,14 +34,19 @@ import java.util.Map;
 @Repository
 public class SeaportCustomRepositoryImpl implements SeaportCustomRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+//    @PersistenceContext
+//    private EntityManager entityManager;
+
+    @PersistenceUnit
+    private EntityManagerFactory entityManagerFactory;
 
     @Autowired
     ColumnPropertyRepository columnPropertyRepository;
 
+
     @Override
     public Page<SeaportEntity> getAll(PageFilterInput<SeaportDTO> input, Pageable pageable) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         SeaportDTO filter = input.getFilter();
         QSeaportEntity qSeaportEntity = QSeaportEntity.seaportEntity;
         QKeyValueEntityV2 qKeyValueEntityV2 = QKeyValueEntityV2.keyValueEntityV2;
@@ -172,6 +179,7 @@ public class SeaportCustomRepositoryImpl implements SeaportCustomRepository {
         }
         query.where(booleanBuilder).groupBy(qSeaportEntity.id);
         List<SeaportEntity> result = query.fetch();
+        entityManager.clear();
 
         return new PageImpl<>(result, pageable, query.fetchCount());
     }
